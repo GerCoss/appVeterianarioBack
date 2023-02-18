@@ -1,0 +1,41 @@
+version: '3'
+
+
+services:
+  app:
+    build:
+      context: .
+      target: ${STAGE}
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    container_name: backend-node
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      MONGO_URI: ${MONGO_URI}
+      JWT_SECRET: ${JWT_SECRET}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASS: ${EMAIL_PASS}
+      EMAIL_HOST: ${EMAIL_HOST}
+      EMAIL_PORT: ${EMAIL_PORT}
+      FRONTEND_URL: ${FRONTEND_URL}
+      PORT: ${PORT}
+
+#   db:
+#     image: postgres:14.3
+#     restart: always
+#     ports:
+#       - "5432:5432"
+#     environment:
+#       POSTGRES_PASSWORD: ${DB_PASSWORD}
+#       POSTGRES_DB: ${DB_NAME}
+#     container_name: ${DB_NAME}
+#     volumes:
+#       - postgres-db:/var/lib/postgresql/data
+
+
+# volumes:
+#   postgres-db:
+#     external: false
